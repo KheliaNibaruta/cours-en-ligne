@@ -1,4 +1,5 @@
 import { db } from "@/lib/db";
+import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
 
 
@@ -13,7 +14,14 @@ export async function POST(
         return new NextResponse("Accès non autorisé", { status : 401 });
     }
 
-    const course = await db.course.create
+    const course = await db.course.create({
+        data: {
+            userId,
+            title,
+        }
+    });
+
+    return NextResponse.json(course);
 
   } catch (error) {
     console.log("[COURS]", error);
