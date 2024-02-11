@@ -55,6 +55,7 @@ const Coursepage = async ({
             <div>
                 <div className="flex items-center gap-x-2">
                     <IconBadge
+                        size="md"
                         icon={LayoutDashboard}
                     />
                     <h2 className="text-xl">
