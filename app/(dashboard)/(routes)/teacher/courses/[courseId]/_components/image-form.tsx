@@ -19,6 +19,12 @@ interface ImageFormProps {
     courseId: string;
 }
 
+const formSchema = z.object({
+    imageUrl: z.string().min(1, {
+        message: "L'image est requise !!!",
+    }),
+});
+
 const ImageForm = ({
     initialData,
     courseId
