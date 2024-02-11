@@ -6,6 +6,7 @@ import { redirect } from "next/navigation";
 import TitleForm from "./_components/title-form";
 import DescriptionForm from "./_components/description-form";
 import { Textarea } from "@/components/ui/textarea";
+import ImageForm from "./_components/image-form";
 
 const Coursepage = async ({
     params
@@ -57,7 +58,6 @@ const Coursepage = async ({
             <div>
                 <div className="flex items-center gap-x-2">
                     <IconBadge
-                        size="md"
                         icon={LayoutDashboard}
                     />
                     <h2 className="text-xl">
@@ -69,6 +69,10 @@ const Coursepage = async ({
                     courseId={course.id}
                 />
                 <DescriptionForm
+                    initialData={course}
+                    courseId={course.id}
+                />
+                <ImageForm
                     initialData={course}
                     courseId={course.id}
                 />
