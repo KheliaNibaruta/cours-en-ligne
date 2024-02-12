@@ -40,7 +40,7 @@ const Coursepage = async ({
         },
     });
 
-    console.log(categories)
+    //console.log(categories)
 
     if (!course) {("/");
         return redirect("/");
@@ -140,9 +140,9 @@ const Coursepage = async ({
                         </h2>
                     </div>
                     <AttachmentForm
-                    initialData={course}
-                    courseId={course.id}
-                />
+                        initialData={course}
+                        courseId={course.id}
+                    />
                 </div>
             </div>
         </div>

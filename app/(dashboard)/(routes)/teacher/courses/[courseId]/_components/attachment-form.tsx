@@ -6,7 +6,7 @@ import axios from "axios";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
-import { ImageIcon, Pencil, PlusCircle } from "lucide-react";
+import { File, ImageIcon, Loader2, Pencil, PlusCircle, X } from "lucide-react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
@@ -29,6 +29,7 @@ const AttachmentForm = ({
   
 }: AttachmentFormProps) => {
     const [isEditing, setIsEditing] = useState(false);
+    const [deletingId, setDeletingId] = useState<string | null>(null);
 
     const toggleEdit = () => setIsEditing((current) => !current);
 
@@ -36,13 +37,27 @@ const AttachmentForm = ({
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         try {
-            await axios.patch(`/api/courses/${courseId}`, values);
+            await axios.post(`/api/courses/${courseId}/attachments`, values);
             toast.success("Cours modifé avec succès");
             toggleEdit();    
             router.refresh();
 
         } catch (error) {
             toast.error("Quelque chose s'est mal passé");
+        }
+    };
+
+    const onDelete =async (id:string) => {
+        try {
+            setDeletingId(id);
+            await axios.delete(`/api/courses/${courseId}/${id}`);
+            toast.success("Fichier supprimé");
+            router.refresh();
+
+        } catch {
+            toast.error("Quelque chose s'est mal passé");
+        } finally {
+            setDeletingId(null);
         }
     }
 
@@ -64,32 +79,61 @@ const AttachmentForm = ({
                              Ajouter un fichier
                         </>
                     )}
-
                 </Button>
             </div>
+
             {!isEditing && (
                 <>
                     {initialData.attachments.length === 0 && (
                         <p className="text-sm mt-2 text-slate-500 italic">
-                            Pas encore de fichier joint ici
+                            Aucun fichier
                         </p>
                     )}
-                    
+                    {initialData.attachments.length > 0 && (
+                        <div className="space-y-2">
+                            {initialData.attachments.map((attachment) => (
+                                <div
+                                    key={attachment.id}
+                                    className="flex items-center p-3 w-full bg-sky-100 border-sky-200 border text-sky-700 rounded-md"
+                                >
+                                    <File 
+                                        className="h-4 w-4 mr-2 flex-shrink-0"
+                                    />
+                                    <p className="text-xs line-clamp-1">
+                                        {attachment.name}
+                                    </p>
+                                    {deletingId === attachment.id && (
+                                        <div>
+                                            <Loader2 className="h-4 w-4 animate-spin" />
+                                        </div>
+                                    )}
+                                    {deletingId !== attachment.id && (
+                                        <button 
+                                            onClick={() => onDelete(attachment.id)}
+                                            className="ml-auto hover:opacity-75 transition"
+                                        >
+                                            <X className="h-4 w-4" />
+                                        </button>
+                                    )}
+                                </div>
+                            ))}
+                        </div>
+                    )}
                 </>
-             )
+                )
             }
             {isEditing && (
                 <div>
                     <FileUpload 
-                        endpoint="courseImage"
+                        endpoint="courseAttachment"
                         onChange={(url) => {
                             if (url) {
-                                onSubmit({ imageUrl: url });
+                                onSubmit({ url: url });
                             }
                         }}
                     />
                     <div className="text-xs text-muted-forground mt-4">
-                        16:9 aspect ratio recommended
+                        Ajouter les ressources nécessaires à ce cours
                     </div>
                 </div>
             )}
