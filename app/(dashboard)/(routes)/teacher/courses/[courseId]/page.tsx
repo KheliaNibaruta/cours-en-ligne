@@ -1,13 +1,14 @@
 import { IconBadge } from "@/components/icon-badge";
 import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs";
-import { LayoutDashboard } from "lucide-react";
+import { CircleDollarSign, LayoutDashboard, ListChecks } from "lucide-react";
 import { redirect } from "next/navigation";
 import TitleForm from "./_components/title-form";
 import DescriptionForm from "./_components/description-form";
 import { Textarea } from "@/components/ui/textarea";
 import ImageForm from "./_components/image-form";
 import CategoryForm from "./_components/category-form";
+import PriceForm from "./_components/price-form";
 
 const Coursepage = async ({
     params
@@ -93,6 +94,35 @@ const Coursepage = async ({
                         value: category.id,
                     }))}
                 />
+            </div>
+            <div className="space-y-6">
+                <div>
+                    <div className="flex items-center gap-x-2">
+                        <IconBadge 
+                            icon={ListChecks}
+                        />
+                        <h2 className="text-xl">
+                            Chapitres du cours
+                        </h2>
+                    </div>
+                    <div>
+                        A faire : Chapitres
+                    </div>
+                </div>
+                <div>
+                    <div className="flex items-center gap-x-2">
+                        <IconBadge 
+                            icon={CircleDollarSign}
+                        />
+                        <h2 className="text-xl">
+                            Vendre votre cours
+                        </h2>
+                    </div>
+                    <PriceForm 
+                        initialData={course}
+                        courseId={course.id}
+                    />
+                </div>
             </div>
         </div>
     </div>
