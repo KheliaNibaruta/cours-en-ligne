@@ -26,7 +26,7 @@ const teacherRoutes = [
     },
     {
         icon: BarChart,
-        label: "Analyse de données",
+        label: "Statistiques",
         href: "/teacher/analytics",
     },
 ]
