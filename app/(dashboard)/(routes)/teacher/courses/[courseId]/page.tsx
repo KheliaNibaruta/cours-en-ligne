@@ -112,9 +112,10 @@ const Coursepage = async ({
                             Chapitres du cours
                         </h2>
                     </div>
-                    <div>
-                        A faire : Chapitres
-                    </div>
+                    <DescriptionForm
+                        initialData={course}
+                        courseId={course.id}
+                    />
                 </div>
                 <div>
                     <div className="flex items-center gap-x-2">
