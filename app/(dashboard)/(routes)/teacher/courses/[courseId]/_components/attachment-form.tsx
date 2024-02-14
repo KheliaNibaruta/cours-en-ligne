@@ -50,7 +50,7 @@ const AttachmentForm = ({
     const onDelete =async (id:string) => {
         try {
             setDeletingId(id);
-            await axios.delete(`/api/courses/${courseId}/${id}`);
+            await axios.delete(`/api/courses/${courseId}/attachments/${id}`);
             toast.success("Fichier supprimé");
             router.refresh();
 
