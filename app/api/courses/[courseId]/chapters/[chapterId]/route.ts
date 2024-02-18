@@ -8,7 +8,7 @@ const mux = new Mux({
   tokenSecret: process.env.MUX_TOKEN_SECRET
 });
 
-export default async function PATCH(
+export async function PATCH(
     req: Request,
     { params }: { params: { courseId: string; chapterId: string } }
     ) {

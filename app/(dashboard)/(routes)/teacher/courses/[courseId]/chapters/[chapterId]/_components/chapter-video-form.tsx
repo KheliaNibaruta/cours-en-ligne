@@ -3,15 +3,13 @@
 
 import * as z from "zod";
 import axios from "axios";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import MuxPlayer from "@mux/mux-player-react";
 import { Button } from "@/components/ui/button";
 import { ImageIcon, Pencil, PlusCircle, Video, VideoIcon } from "lucide-react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { Chapter, Course, MuxData } from "@prisma/client";
-import Image from "next/image";
 import FileUpload from "@/components/file-upload";
 
 interface ChapterVideoFormProps {
@@ -81,7 +79,9 @@ const ChapterVideoForm = ({
                     </div>
                 ) : (
                     <div className="relative aspect-video mt-2">
-                        Vidéo uploadée !
+                        <MuxPlayer 
+                            playbackId={initialData?.muxData?.playbackId || ""}
+                        />
                     </div>
                 )
             )}
@@ -102,7 +102,7 @@ const ChapterVideoForm = ({
             )}
             {initialData.videoUrl && !isEditing && (
                 <div className="text-xs text-muted-foreground mt-2">
-                    La vidéo peut prendre quelques minutes avant d&napos;apparaitre. Actualiser la page si la vidéo n&apos;apparait pas.
+                    La vidéo peut prendre quelques minutes avant d&apos;apparaitre. Actualiser la page si la vidéo n&apos;apparait pas.
                 </div>
             )}
         </div>
