@@ -10,7 +10,8 @@ import {
 } from "@hello-pangea/dnd";
 
 import { cn } from "@/lib/utils";
-import { Badge, Grip, Pencil } from "lucide-react";
+import { Grip, Pencil } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 
 interface ChaptersListProps {
     items: Chapter[];
