@@ -1,6 +1,6 @@
 import React from 'react'
 import MobileSidebar from './MobileSidebar'
-import NavbarRoutes from '@/components/NavbarRoutes'
+import NavbarRoutes from '@/components/navbarRoutes'
 
 const Navbar = () => {
   return (
