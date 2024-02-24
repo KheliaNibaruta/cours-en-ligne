@@ -1,10 +1,6 @@
-import React from 'react'
-
-const formatPrice = (price: number) => {
-  return new Intl.NumberFormat("en-EU", {
+export const formatPrice = (price: number) => {
+  return new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: "EUR"
   }).format(price)
 }
-
-export default formatPrice
